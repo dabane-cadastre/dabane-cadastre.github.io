@@ -1,0 +1,14 @@
+{
+"type": "FeatureCollection",
+"name": "WaterPoints",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Name": "Mawane-Zhokwe Sand dam site", "Project": "Excellent Development", "District": "Gwanda" }, "geometry": { "type": "Point", "coordinates": [ 28.97308, -21.21032, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "Silalatshane WP", "Project": "Excellent Development", "District": "Gwanda" }, "geometry": { "type": "Point", "coordinates": [ 28.972995, -21.209405, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "Mkhayeni WP", "Project": "Excellent Development", "District": "Gwanda" }, "geometry": { "type": "Point", "coordinates": [ 28.971927, -21.199354, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "Mashongoma WP", "Project": "Excellent Development", "District": "Gwanda" }, "geometry": { "type": "Point", "coordinates": [ 28.97535144197499, -21.217627116437491, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "Emjabulweni WP", "Project": "Excellent Development", "District": "Gwanda" }, "geometry": { "type": "Point", "coordinates": [ 28.97218401214981, -21.201487737477251, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "Ebhilini WP", "Project": "Excellent Development", "District": "Gwanda" }, "geometry": { "type": "Point", "coordinates": [ 28.971372, -21.197572, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "Dohwe WP", "Project": "Excellent Development", "District": "Gwanda" }, "geometry": { "type": "Point", "coordinates": [ 28.972633963451852, -21.20066185673361, 0.0 ] } }
+]
+}
