@@ -533,7 +533,7 @@ var getStyle2 = function (feature, resolution) {
     showLabels: true,
     style: new ol.style.Style({
       fill: new ol.style.Fill({
-        color: 'rgba(255,255,255,0.4)'
+        color: 'rgba(255,255,255,0.01)'
       }),
       stroke: new ol.style.Stroke({
         color:'red',
@@ -631,7 +631,7 @@ var getStyle2 = function (feature, resolution) {
    new ol.style.Style({
     image:new ol.style.Circle({
       fill: new ol.style.Fill({
-        color: 'lime'
+        color: 'yellow'
       }),
       radius: 2.5,
       stroke: new ol.style.Stroke({
