@@ -376,6 +376,15 @@ const stamenToner = new ol.layer.Tile({
   // *********************************************
   // STYLES
 //Sand Dam
+  const iconMarkerStyle = new ol.style.Icon({
+    src: './resources/icons/dam.png',
+    size: [50, 50],
+    offset: [0, 0],
+    opacity: 1,
+    scale: 0.35,
+    color:'blue'
+    
+  })
 
 
 
@@ -644,28 +653,42 @@ var getStyle2 = function (feature, resolution) {
   title: 'gardens'
 })
 
-// Water Points layer
+
 const waterpointsGeoJSON = new ol.layer.VectorImage({
   source: new ol.source.Vector({
     url: './resources/shapefiles/WaterPoints.geojson',
     format: new ol.format.GeoJSON()
   }),
-  style:
-   new ol.style.Style({
-    image:new ol.style.Circle({
-      fill: new ol.style.Fill({
-        color: 'lime'
-      }),
-      radius: 2.5,
-      stroke: new ol.style.Stroke({
-        color: [0, 0, 0, 1],
-        width: 1
-      }) 
-    })   
+  style: new ol.style.Style({
+    image:iconMarkerStyle
   }),
   visible: false,
   title: 'waterPoints'
 })
+
+
+// Water Points layer
+// const waterpointsGeoJSON = new ol.layer.VectorImage({
+//   source: new ol.source.Vector({
+//     url: './resources/shapefiles/WaterPoints.geojson',
+//     format: new ol.format.GeoJSON()
+//   }),
+//   style:
+//    new ol.style.Style({
+//     image:new ol.style.Circle({
+//       fill: new ol.style.Fill({
+//         color: 'lime'
+//       }),
+//       radius: 2.5,
+//       stroke: new ol.style.Stroke({
+//         color: [0, 0, 0, 1],
+//         width: 1
+//       }) 
+//     })   
+//   }),
+//   visible: false,
+//   title: 'waterPoints'
+// })
 
 const gabionsGeoJSON = new ol.layer.VectorImage({
   source: new ol.source.Vector({
@@ -826,51 +849,7 @@ const gabionsGeoJSON = new ol.layer.VectorImage({
     })
     map.removeOverlay(popup);
   })
-  // const overlayContainerElement = document.querySelector('.overlay-container');
-  // const overlayLayer = new ol.Overlay({
-  //   element: overlayContainerElement
-  // })
-  // map.addOverlay(overlayLayer);
-
-  // const overlayName = document.getElementById('local-provinceName');
-  // const overlaydistrictName = document.getElementById('local-districtName');
-  // const overlaywardNumber = document.getElementById('local-minValue');
-  // const overlaywardArea = document.getElementById('local-maxValue');
-  // const overlayminValue = document.getElementById('local-meanValue');
-  // const overlaymaxValue = document.getElementById('local-wardNumber');
-  // const overlaymeanValue = document.getElementById('local-wardArea');
-
   
-  //map.on('click', function(e){
-  // map.on('pointermove', function(e){
-  //   overlayLayer.setPosition(undefined);
-  //   map.forEachFeatureAtPixel(e.pixel, function(feature, layer){
-  //     let clickedCoordinate = e.coordinate;
-    //   let provinceName = feature.get('PROVINCE');
-    //   let districtName= feature.get('DISTRICT');
-    //   let minValue = feature.get('MIN_1');
-    //   let maxValue= feature.get('MAX_1');
-    //   let meanValue = feature.get('MEAN_1');
-    //   let wardNumber= feature.get('WARDNUMBER');
-    //   let wardArea = feature.get('Area');
-    
-    //  if(clickedLocalForestryName && clickedLocalForestryArea != undefined){
-    //     overlayLayer.setPosition(clickedCoordinate);
-    //     overlayprovinceName.innerHTML = 'PROVINCE: ' + PROVINCE;
-    //     overlaydistrictName.innerHTML = 'DISTRICT: ' + DISTRICT;
-    //     overlaywardNumber.innerHTML = 'WARD: ' + WARDNUMBER;
-    //     overlaywardArea.innerHTML = 'WARD AREA: ' + Area;
-    //     overlayminValue.innerHTML = 'MIN SOILLOSS: ' + MIN_1 +'t/ha/yr';
-    //     overlaymaxValue.innerHTML = 'MAX SOILLOSS: ' + MAX_1 +'t/ha/yr';
-    //     overlaymeanValue.innerHTML = 'MEAN SOILLOSS: ' + MEAN_1 +'t/ha/yr';
-    
-    // },
-    // {
-    //   layerFilter: function(layerCandidate){
-    //     return layerCandidate.get('title') === 'wards'
-    //   }
-  //   })
-  // })
     const clickElementsubcatch = document.querySelector('.overlay-container-subcatchment');
     const clickoverlaysubcatch = new ol.Overlay({
       element: clickElementsubcatch
@@ -881,7 +860,7 @@ const gabionsGeoJSON = new ol.layer.VectorImage({
     const overlaysubcatchArea = document.getElementById('subcatchment-area');
     const overlayWardProject = document.getElementById('ward-project');
   
-    map.on('click', function(e){
+    map.on('pointermove', function(e){
       clickoverlaysubcatch.setPosition(undefined);
         map.forEachFeatureAtPixel(e.pixel, function(feature, layer){
           let clickedCoordinate = e.coordinate;
@@ -901,6 +880,7 @@ const gabionsGeoJSON = new ol.layer.VectorImage({
         })
       })
 
+  
     const clickElementcatchment = document.querySelector('.overlay-container-catchment');
     const clickoverlaycatchment = new ol.Overlay({
       element: clickElementcatchment
@@ -910,19 +890,19 @@ const gabionsGeoJSON = new ol.layer.VectorImage({
     const overlaycatchmentName = document.getElementById('catchment-name-info');
     const overlaycatchmentArea = document.getElementById('catchment-area');
   
-    map.on('click', function(e){
+    map.on('pointermove', function(e){
       clickoverlaycatchment.setPosition(undefined);
         map.forEachFeatureAtPixel(e.pixel, function(feature, layer){
           let clickedCoordinate = e.coordinate;
           let clickedcatchmentName = feature.get('Name')
-          let clickedcatchmentArea = feature.get('Area')     
+          let clickedcatchmentArea = feature.get('District')     
           clickoverlaycatchment.setPosition(clickedCoordinate);
-          overlaycatchmentName.innerHTML = 'Name: ' + clickedcatchmentName;
-          overlaycatchmentArea.innerHTML = 'Area: ' + clickedcatchmentArea +'km²';
+          overlaycatchmentName.innerHTML = clickedcatchmentName + ' Sand Dam';
+          overlaycatchmentArea.innerHTML = 'District: ' + clickedcatchmentArea;
         },
         {
           layerFilter: function(layerCandidate){
-            return layerCandidate.get('title') === 'district';
+            return layerCandidate.get('title') === 'sandDams';
           }
         })
       })
@@ -958,7 +938,7 @@ const clickElementwards = document.querySelector('.overlay-container-wards');
         },
         {
           layerFilter: function(layerCandidate){
-            return layerCandidate.get('title') === 'sandDams';
+            return layerCandidate.get('title') === 'sandDamss';
           }
         })
       })            
