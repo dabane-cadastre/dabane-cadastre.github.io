@@ -689,7 +689,7 @@ const gabionsGeoJSON = new ol.layer.VectorImage({
   // Thematic Layers Group
   const layerGroup = new ol.layer.Group({
     layers: [
-      gardensGeoJSON, ZimbabweGeoJSON,wardsGeoJSON,semiAridGeoJSON,waterpointsGeoJSON,sandDamsGeoJSON, 
+       ZimbabweGeoJSON,wardsGeoJSON,semiAridGeoJSON,gardensGeoJSON,waterpointsGeoJSON,sandDamsGeoJSON, 
       gabionsGeoJSON
     ]
   })
