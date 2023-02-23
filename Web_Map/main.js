@@ -376,13 +376,41 @@ const stamenToner = new ol.layer.Tile({
   // *********************************************
   // STYLES
 //Sand Dam
-  const iconMarkerStyle = new ol.style.Icon({
-    src: './resources/icons/dam.png',
+  const waterPointMarkerStyle = new ol.style.Icon({
+    src: './resources/icons/icon2.png',
     size: [50, 50],
     offset: [0, 0],
     opacity: 1,
     scale: 0.35,
     color:'blue'
+    
+  })
+  const damMarkerStyle = new ol.style.Icon({
+    src: './resources/icons/damIcon.png',
+    size: [50, 50],
+    offset: [0, 0],
+    opacity: 1,
+    scale: 0.35,
+    // color:'red'
+    
+  })
+  const gardenMarkerStyle = new ol.style.Icon({
+    src: './resources/icons/garden.png',
+    size: [50, 50],
+    offset: [0, 0],
+    opacity: 1,
+    scale: 0.35,
+    color:'lime'
+    
+  })
+
+  const gabionsMarkerStyle = new ol.style.Icon({
+    src: './resources/icons/gabion.png',
+    size: [50, 50],
+    offset: [0, 0],
+    opacity: 1,
+    scale: 0.35,
+    color:'brown'
     
   })
 
@@ -487,32 +515,7 @@ var getStyle2 = function (feature, resolution) {
     color: [255, 20, 147, 1]
     
   });
-  // Icon Marker Style
-  const tourismMarkerStyle = new ol.style.Icon({
-    src: './resources/icons/dam.png',
-    size: [100, 100],
-    offset: [0, 0],
-    opacity: 1,
-    scale: 0.35,
-    //color: [250, 98, 240, 1]
-    
-  })
-
-  // Roads Layer
-  const roadsGeoJSON = new ol.layer.VectorImage({
-    source: new ol.source.Vector({
-      url: './data/vectors/roads.geojson',
-      format: new ol.format.GeoJSON()
-    }),
-    style: new ol.style.Style({
-      stroke: new ol.style.Stroke({
-        color: 'rgba(255, 0, 0,1)',
-        width: 2,
-        })
-    }),
-      visible: false,
-    title: 'Roads',
-  })
+  
 
  // Dabane Wards
  const wardsGeoJSON = new ol.layer.VectorImage({
@@ -530,7 +533,7 @@ var getStyle2 = function (feature, resolution) {
 
 
 
-  // Districts
+  // Zimbabwe Boundary
   const ZimbabweGeoJSON = new ol.layer.VectorImage({
     source: new ol.source.Vector({
       url: './resources/shapefiles/zimBoundary.geojson',
@@ -573,22 +576,8 @@ var getStyle2 = function (feature, resolution) {
   })
 
    
-  // Points of Interest Layer
+  // Dabane Wards
 
-  const subcatchmentGeoJSON = new ol.layer.VectorImage({
-    source: new ol.source.Vector({
-      url: './data/vectors/subcatchment.geojson',
-      format: new ol.format.GeoJSON()
-    }),
-    visible: false,
-    title: 'subcatchment',
-    // style: new ol.style.Style({
-    //   fill: fillStyle
-    // })
-    style: function (feature, resolution) {
-      return getStyle(feature, resolution);
-    }
-  });
 
   const wardssGeoJSON = new ol.layer.VectorImage({
     source: new ol.source.Vector({
@@ -606,6 +595,9 @@ var getStyle2 = function (feature, resolution) {
     }
   })
 
+  //----------------------------------------------------------------------------------------------------------------------------------
+  //POINT LAYERS
+
 
   // Sand Dams layer
   const sandDamsGeoJSON = new ol.layer.VectorImage({
@@ -613,45 +605,25 @@ var getStyle2 = function (feature, resolution) {
       url: './resources/shapefiles/sandDams.geojson',
       format: new ol.format.GeoJSON()
     }),
-    style:
-     new ol.style.Style({
-      image:new ol.style.Circle({
-        fill: new ol.style.Fill({
-          color: 'blue'
-        }),
-        radius: 2.5,
-        stroke: new ol.style.Stroke({
-          color: [0, 0, 0, 1],
-          width: 1
-        }) 
-      })   
+    style: new ol.style.Style({
+      image:damMarkerStyle
     }),
     visible: false,
     title: 'sandDams'
   })
 
- // Gardens layer
- const gardensGeoJSON = new ol.layer.VectorImage({
-  source: new ol.source.Vector({
-    url: './resources/shapefiles/gardens.geojson',
-    format: new ol.format.GeoJSON()
-  }),
-  style:
-   new ol.style.Style({
-    image:new ol.style.Circle({
-      fill: new ol.style.Fill({
-        color: 'yellow'
-      }),
-      radius: 2.5,
-      stroke: new ol.style.Stroke({
-        color: [0, 0, 0, 1],
-        width: 1
-      }) 
-    })   
-  }),
-  visible: false,
-  title: 'gardens'
-})
+  const gardensGeoJSON = new ol.layer.VectorImage({
+    source: new ol.source.Vector({
+      url: './resources/shapefiles/gardens.geojson',
+      format: new ol.format.GeoJSON()
+    }),
+    style: new ol.style.Style({
+      image:gardenMarkerStyle
+    }),
+    visible: false,
+    title: 'gardens'
+  })
+
 
 
 const waterpointsGeoJSON = new ol.layer.VectorImage({
@@ -660,24 +632,23 @@ const waterpointsGeoJSON = new ol.layer.VectorImage({
     format: new ol.format.GeoJSON()
   }),
   style: new ol.style.Style({
-    image:iconMarkerStyle
+    image:waterPointMarkerStyle
   }),
   visible: false,
   title: 'waterPoints'
 })
 
 
-// Water Points layer
-// const waterpointsGeoJSON = new ol.layer.VectorImage({
+// const gabionsGeoJSON = new ol.layer.VectorImage({
 //   source: new ol.source.Vector({
-//     url: './resources/shapefiles/WaterPoints.geojson',
+//     url: './resources/shapefiles/gabions.geojson',
 //     format: new ol.format.GeoJSON()
 //   }),
 //   style:
 //    new ol.style.Style({
 //     image:new ol.style.Circle({
 //       fill: new ol.style.Fill({
-//         color: 'lime'
+//         color: 'brown'
 //       }),
 //       radius: 2.5,
 //       stroke: new ol.style.Stroke({
@@ -687,81 +658,39 @@ const waterpointsGeoJSON = new ol.layer.VectorImage({
 //     })   
 //   }),
 //   visible: false,
-//   title: 'waterPoints'
+//   title: 'gabions'
 // })
+
 
 const gabionsGeoJSON = new ol.layer.VectorImage({
   source: new ol.source.Vector({
     url: './resources/shapefiles/gabions.geojson',
     format: new ol.format.GeoJSON()
   }),
-  style:
-   new ol.style.Style({
-    image:new ol.style.Circle({
-      fill: new ol.style.Fill({
-        color: 'brown'
-      }),
-      radius: 2.5,
-      stroke: new ol.style.Stroke({
-        color: [0, 0, 0, 1],
-        width: 1
-      }) 
-    })   
+  style: new ol.style.Style({
+    image:gabionsMarkerStyle
   }),
   visible: false,
   title: 'gabions'
 })
 
-  // TileDebug Layer
-  const tileDebugLayer = new ol.layer.Tile({
-    source: new ol.source.TileDebug(),
-    opacity: 0.3,
-    visible: false,
-    title: 'TileDebugLayer'
-  })
 
-  //Graticule Layer
-  const coordinateGrid = new ol.layer.Graticule({
-    strokeStyle: new ol.style.Stroke({
-      color: 'rgba(255,120,0,0.9)',
-      //color: 'rgba(0,0,240,0.5)',
-      width: 2,
-      lineDash: [0.1, 4],
-    }),
-    showLabels: true,
-    targetSize: 120, //default 100
-    wrapX: false,
-    visible: false,
-    title: 'Graticule'
-  })
-
-  // Static Image Layer (Perm Airport)
-  const imageFragmentStatic1 = new ol.layer.Image ({
-    source: new ol.source.ImageStatic ({
-      url: './data/rasters/Airport.png',
-      imageExtent: [6233894, 7949483, 6236671, 7951586],
-      attributions: '© Yandex'
-    }),
-    visible: false,
-    title: 'ImageStatic-1'
-  })
-
-  // Static Image Layer (observing location Perm-01)
-  const imageFragmentStatic2 = new ol.layer.Image ({
-    source: new ol.source.ImageStatic ({
-      url: './data/rasters/soil_risk.tif',
-      imageExtent: [3081957,-2562334,3559156,-2245167],
-      attributions: '© Kartolabs'
-    }),
-    visible: false,
-    title: 'hotspots'
-  })
+  // // Static Image Layer (observing location Perm-01)
+  // const imageFragmentStatic2 = new ol.layer.Image ({
+  //   source: new ol.source.ImageStatic ({
+  //     url: './data/rasters/soil_risk.tif',
+  //     imageExtent: [3081957,-2562334,3559156,-2245167],
+  //     attributions: '© Kartolabs'
+  //   }),
+  //   visible: false,
+  //   title: 'hotspots'
+  // })
 
   // Thematic Layers Group
   const layerGroup = new ol.layer.Group({
     layers: [
       gardensGeoJSON, ZimbabweGeoJSON,wardsGeoJSON,semiAridGeoJSON,waterpointsGeoJSON,sandDamsGeoJSON, 
-      gabionsGeoJSON, coordinateGrid, imageFragmentStatic1, imageFragmentStatic2
+      gabionsGeoJSON
     ]
   })
   map.addLayer(layerGroup);
@@ -887,18 +816,29 @@ const gabionsGeoJSON = new ol.layer.VectorImage({
       })
       map.addOverlay(clickoverlaycatchment);
   
-    const overlaycatchmentName = document.getElementById('catchment-name-info');
-    const overlaycatchmentArea = document.getElementById('catchment-area');
+    const overlayDamName = document.getElementById('Dam-name-info');
+    const overlayDamDistrict = document.getElementById('Dam-Dsitrict-info');
+    const overlaydamWard = document.getElementById('Dam-Ward-info');
+    const overlayDamCatchment = document.getElementById('Dam-catchment-info');
+    const overlayDamYear = document.getElementById('Dam-Year-info');
+
   
     map.on('pointermove', function(e){
       clickoverlaycatchment.setPosition(undefined);
         map.forEachFeatureAtPixel(e.pixel, function(feature, layer){
           let clickedCoordinate = e.coordinate;
-          let clickedcatchmentName = feature.get('Name')
-          let clickedcatchmentArea = feature.get('District')     
+          let clickedDamName = feature.get('Name')
+          let clickedDamDistrict = feature.get('District')     
+          let clickedDamWard = feature.get('Ward')
+          let clickedDamCatchment = feature.get('Catchment')
+          let clickedDamYear = feature.get('Year')
           clickoverlaycatchment.setPosition(clickedCoordinate);
-          overlaycatchmentName.innerHTML = clickedcatchmentName + ' Sand Dam';
-          overlaycatchmentArea.innerHTML = 'District: ' + clickedcatchmentArea;
+          overlayDamName.innerHTML = clickedDamName + ' Sand Dam';
+          overlayDamDistrict.innerHTML = 'District: ' + clickedDamDistrict;
+          overlaydamWard.innerHTML = 'Ward:' + clickedDamWard;
+          overlayDamCatchment.innerHTML = 'Catchment Area: ' + clickedDamCatchment;
+          overlayDamYear.innerHTML = 'It was established in ' +clickedDamYear ;
+
         },
         {
           layerFilter: function(layerCandidate){
