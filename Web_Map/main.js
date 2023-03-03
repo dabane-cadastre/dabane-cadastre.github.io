@@ -490,7 +490,7 @@ var getStyle2 = function (feature, resolution) {
     lineCap: 'square',
     lineJoin: 'bevel',
     lineDash: [0, 0]
-  }) 
+  })
 
     // Icon Marker Style
 
