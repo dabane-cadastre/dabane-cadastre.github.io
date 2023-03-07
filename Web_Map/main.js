@@ -837,7 +837,7 @@ const gabionsGeoJSON = new ol.layer.VectorImage({
           overlayDamDistrict.innerHTML = 'District: ' + clickedDamDistrict;
           overlaydamWard.innerHTML = 'Ward:' + clickedDamWard;
           overlayDamCatchment.innerHTML = 'Catchment Area: ' + clickedDamCatchment;
-          overlayDamYear.innerHTML = 'It was established in ' +clickedDamYear ;
+          overlayDamYear.innerHTML = 'Year of Establishment: ' +clickedDamYear ;
 
         },
         {
