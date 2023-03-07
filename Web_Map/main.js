@@ -377,40 +377,40 @@ const stamenToner = new ol.layer.Tile({
   // STYLES
 //Sand Dam
   const waterPointMarkerStyle = new ol.style.Icon({
-    src: './resources/icons/icon2.png',
-    size: [50, 50],
+    src: './resources/icons/asset2.png',
+    size: [200, 200],
     offset: [0, 0],
     opacity: 1,
-    scale: 0.35,
-    color:'blue'
+    scale: 0.10,
+    // color:'blue'
     
   })
   const damMarkerStyle = new ol.style.Icon({
-    src: './resources/icons/damIcon.png',
-    size: [50, 50],
+    src: './resources/icons/DamIcon2.png',
+    size: [200, 200],
     offset: [0, 0],
     opacity: 1,
-    scale: 0.35,
+    scale: 0.1,
     // color:'red'
     
   })
   const gardenMarkerStyle = new ol.style.Icon({
-    src: './resources/icons/garden.png',
-    size: [50, 50],
+    src: './resources/icons/asset2.png',
+    size: [200, 200],
     offset: [0, 0],
     opacity: 1,
-    scale: 0.35,
+    scale: 0.10,
     color:'lime'
     
   })
 
   const gabionsMarkerStyle = new ol.style.Icon({
-    src: './resources/icons/gabion.png',
-    size: [50, 50],
+    src: './resources/icons/circle.png',
+    size: [200, 200],
     offset: [0, 0],
     opacity: 1,
-    scale: 0.35,
-    color:'brown'
+    scale: 0.05,
+    color:'lime'
     
   })
 
