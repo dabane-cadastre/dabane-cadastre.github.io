@@ -789,7 +789,7 @@ const gabionsGeoJSON = new ol.layer.VectorImage({
     const overlaysubcatchArea = document.getElementById('subcatchment-area');
     const overlayWardProject = document.getElementById('ward-project');
   
-    map.on('pointermove', function(e){
+    map.on('click', function(e){
       clickoverlaysubcatch.setPosition(undefined);
         map.forEachFeatureAtPixel(e.pixel, function(feature, layer){
           let clickedCoordinate = e.coordinate;
@@ -847,63 +847,73 @@ const gabionsGeoJSON = new ol.layer.VectorImage({
         })
       })
 
-const clickElementwards = document.querySelector('.overlay-container-wards');
-    const clickoverlaywards = new ol.Overlay({
-      element: clickElementwards
+const clickElementECW = document.querySelector('.overlay-container-ew');
+    const clickoverlayECW = new ol.Overlay({
+      element: clickElementECW
       })
-      map.addOverlay(clickoverlaywards);
+      map.addOverlay(clickoverlayECW);
   
-    const overlaywardProvince = document.getElementById('province-name-info');
-    const overlaywardDistrict = document.getElementById('ward-district-info');
-    const overlayWardNumber = document.getElementById('local-wardNumber');
-    overlaywardArea = document.getElementById('local-ward-area');
-    const overlaymeanValue = document.getElementById('local-Mean-Value');
+    const overlayECWType = document.getElementById('ECW-type-info');
+    const overlayECWDistrict = document.getElementById('ECW-district-info');
+    const overlayECWWardNumber = document.getElementById('ECW-wardNumber');
+    const overlayECWProject = document.getElementById('ECW-project-info');
+    // const overlaymeanValue = document.getElementById('local-Mean-Value');
   
-    map.on('click', function(e){
-      clickoverlaywards.setPosition(undefined);
+    map.on('pointermove', function(e){
+      clickoverlayECW.setPosition(undefined);
         map.forEachFeatureAtPixel(e.pixel, function(feature, layer){
           let clickedCoordinate = e.coordinate;
-          let clickedwardProvince = feature.get('PROVINCE')
-          let clickedwardDistrict = feature.get('DISTRICT')
-          let clickedmeanValue = feature.get('risk');   
-          let clickedwardNumber = feature.get('WARDNUMBER'); 
-          let clickedWardArea = feature.get('Area');   
-          clickoverlaywards.setPosition(clickedCoordinate);
-          overlaywardProvince.innerHTML = 'PROVINCE: ' + clickedwardProvince;
-          overlaywardDistrict.innerHTML = 'DISTRICT: ' + clickedwardDistrict;
-          overlaymeanValue.innerHTML = 'Erosion Risk: ' + clickedmeanValue;
-          overlayWardNumber.innerHTML = 'WARD: ' + clickedwardNumber;
-          overlaywardArea.innerHTML = 'WARD AREA: ' + clickedWardArea.toFixed(2)+'km²'; 
+          let clickedECWType = feature.get('Type')
+          let clickedECWDistrict = feature.get('District')
+          // let clickedmeanValue = feature.get('risk');   
+          let clickedECWWardNumber = feature.get('Ward'); 
+          let clickedECWProject= feature.get('Project');   
+          clickoverlayECW.setPosition(clickedCoordinate);
+          overlayECWType.innerHTML = clickedECWType;
+          overlayECWDistrict.innerHTML = 'District: ' + clickedECWDistrict;
+          // overlaymeanValue.innerHTML = 'Erosion Risk: ' + clickedmeanValue;
+          overlayECWWardNumber.innerHTML = 'Ward: ' + clickedECWWardNumber;
+          overlayECWProject.innerHTML = 'Project: ' + clickedECWProject; 
 
         },
         {
           layerFilter: function(layerCandidate){
-            return layerCandidate.get('title') === 'sandDamss';
+            return layerCandidate.get('title') === 'gabions';
           }
         })
       })            
-  const clickElementShops = document.querySelector('.overlay-container-Shops');
-  const clickoverlayShops = new ol.Overlay({
-    element: clickElementShops
+  const clickElementgardens = document.querySelector('.overlay-container-gardens');
+  const clickoverlaygardens = new ol.Overlay({
+    element: clickElementgardens
     })
-    map.addOverlay(clickoverlayShops);
+    map.addOverlay(clickoverlaygardens);
 
-  const overlayshopName = document.getElementById('shop-name-info');
-  const overlayShopType = document.getElementById('shop-type-info');
+  const overlayGardenName = document.getElementById('garden-name-info');
+  const overlayGardenType = document.getElementById('garden-type-info');
+  const overlayGardenDistrict = document.getElementById('garden-district-info');
+  const overlayGardenWard = document.getElementById('garden-ward-info');
+  const overlayGardenProject = document.getElementById('garden-project-info');
+  
 
-  map.on('click', function(e){
-    clickoverlayShops.setPosition(undefined);
+  map.on('pointermove', function(e){
+    clickoverlaygardens.setPosition(undefined);
       map.forEachFeatureAtPixel(e.pixel, function(feature, layer){
         let clickedCoordinate = e.coordinate;
-        let cllickedShopName = feature.get('name')
-        let cllickedShopType = feature.get('shop')     
-        clickoverlayShops.setPosition(clickedCoordinate);
-          overlayshopName.innerHTML = 'Наз.магазина: ' + cllickedShopName;
-          overlayShopType.innerHTML = 'Тип.магазина: ' + cllickedShopType;
+        let clickedGardenName = feature.get('Name')
+        let cllickedGardenType = feature.get('Type')  
+        let clickedGardenDistict = feature.get('District')
+        let cllickedGardenWard = feature.get('Ward')    
+        let cllickedGardenProject = feature.get('Project')  
+        clickoverlaygardens.setPosition(clickedCoordinate);
+          overlayGardenName.innerHTML = clickedGardenName;
+          overlayGardenType.innerHTML = 'Type: ' + cllickedGardenType;
+          overlayGardenDistrict.innerHTML = 'District: ' + clickedGardenDistict;
+          overlayGardenWard.innerHTML = 'Ward: ' + cllickedGardenWard;
+          overlayGardenProject.innerHTML = 'Project: ' + cllickedGardenProject;
       },
       {
         layerFilter: function(layerCandidate){
-          return layerCandidate.get('title') === 'shops';
+          return layerCandidate.get('title') === 'gardens';
         }
       })
     })

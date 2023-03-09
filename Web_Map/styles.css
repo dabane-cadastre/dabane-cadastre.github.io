@@ -344,7 +344,7 @@ text-align: center;
   border-radius: 0.5em;
 }
 
-.overlay-container-wards, .overlay-container-catchment, .overlay-container-subcatchment{
+.overlay-container-ew, .overlay-container-gardens, .overlay-container-catchment, .overlay-container-subcatchment{
   text-align: center;
   font-size: large;
   padding: 4px 4px;
