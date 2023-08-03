@@ -832,12 +832,18 @@ const gabionsGeoJSON = new ol.layer.VectorImage({
           let clickedDamWard = feature.get('Ward')
           let clickedDamCatchment = feature.get('Catchment')
           let clickedDamYear = feature.get('Year')
+          let clickedDamImageUrl = feature.get('imageUrl'); // Get the image URL
           clickoverlaycatchment.setPosition(clickedCoordinate);
           overlayDamName.innerHTML = clickedDamName + ' Sand Dam';
           overlayDamDistrict.innerHTML = 'District: ' + clickedDamDistrict;
           overlaydamWard.innerHTML = 'Ward:' + clickedDamWard;
           overlayDamCatchment.innerHTML = 'Catchment Area: ' + clickedDamCatchment;
           overlayDamYear.innerHTML = 'Year of Establishment: ' +clickedDamYear ;
+
+          const imageElement = document.createElement('img');
+          imageElement.src = clickedDamImageUrl;
+          overlayDamImage.innerHTML = ''; // Clear previous content (if any)
+          overlayDamImage.appendChild(imageElement);
 
         },
         {
