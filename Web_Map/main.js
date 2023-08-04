@@ -953,9 +953,10 @@ const clickElementECW = document.querySelector('.overlay-container-ew');
   const overlayGardenDistrict = document.getElementById('garden-district-info');
   const overlayGardenWard = document.getElementById('garden-ward-info');
   const overlayGardenProject = document.getElementById('garden-project-info');
+  const overlayGardenImage = document.getElementById('garden-image');
   
 
-  map.on('pointermove', function(e){
+  map.on('click', function(e){
     clickoverlaygardens.setPosition(undefined);
       map.forEachFeatureAtPixel(e.pixel, function(feature, layer){
         let clickedCoordinate = e.coordinate;
@@ -964,12 +965,15 @@ const clickElementECW = document.querySelector('.overlay-container-ew');
         let clickedGardenDistict = feature.get('District')
         let cllickedGardenWard = feature.get('Ward')    
         let cllickedGardenProject = feature.get('Project')  
+        let clickedGardenImageURL = feature.get('imgUrl');
+
         clickoverlaygardens.setPosition(clickedCoordinate);
           overlayGardenName.innerHTML = clickedGardenName;
           overlayGardenType.innerHTML = 'Type: ' + cllickedGardenType;
           overlayGardenDistrict.innerHTML = 'District: ' + clickedGardenDistict;
           overlayGardenWard.innerHTML = 'Ward: ' + cllickedGardenWard;
           overlayGardenProject.innerHTML = 'Project: ' + cllickedGardenProject;
+          overlayGardenImage.src = clickedGardenImageURL;
       },
       {
         layerFilter: function(layerCandidate){
