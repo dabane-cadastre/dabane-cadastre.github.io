@@ -522,14 +522,34 @@ var getStyle2 = function (feature, resolution) {
   source: new ol.source.Vector({
     url: './resources/shapefiles/semiAridWards.geojson',
     format: new ol.format.GeoJSON(),
-    projection:'EPSG:32735'
+    projection: 'EPSG:32735'
   }),
   visible: false,
   title: 'wards',
   style: function (feature, resolution) {
-    return getStyle(feature, resolution);
+    return [
+      getStyle(feature, resolution),
+      createLabelStyle(feature, resolution)
+    ];
   }
-})
+});
+
+function createLabelStyle(feature, resolution) {
+  // Extract the 'Names' property from the feature's properties
+  const name = feature.get('Names');
+
+  return new ol.style.Style({
+    text: new ol.style.Text({
+      text: name, // Set the text to the 'Names' attribute
+      font: '12px Arial', // Customize the font and size
+      fill: new ol.style.Fill({ color: 'black' }), // Set the text color
+      stroke: new ol.style.Stroke({ color: 'white', width: 3 }), // Add an outline to the text
+      offsetY: -15, // Offset the label up so it doesn't overlap the feature
+      textAlign: 'center', // Center the text horizontally
+      textBaseline: 'middle' // Center the text vertically
+    })
+  });
+}
 
 
 
@@ -559,7 +579,7 @@ var getStyle2 = function (feature, resolution) {
     source: new ol.source.Vector({
       url: './resources/shapefiles/semiAridDistricts.geojson',
       format: new ol.format.GeoJSON(),
-      projection:'EPSG:32735'
+      projection: 'EPSG:32735'
     }),
     visible: true,
     title: 'districts',
@@ -568,12 +588,44 @@ var getStyle2 = function (feature, resolution) {
         color: 'rgba(255,255,255,0.4)'
       }),
       stroke: new ol.style.Stroke({
-        color:'#239ed7',
+        color: '#239ed7',
         width: 2
-      }),
-     
-    })
-  })
+      })
+    }),
+    // Add the label style function
+    renderMode: 'image',
+    style: function (feature, resolution) {
+      return [
+        new ol.style.Style({
+          fill: new ol.style.Fill({
+            color: 'rgba(255,255,255,0.4)'
+          }),
+          stroke: new ol.style.Stroke({
+            color: '#239ed7',
+            width: 2
+          })
+        }),
+        createLabelStyle(feature, resolution)
+      ];
+    }
+  });
+  
+  function createLabelStyle(feature, resolution) {
+    // Extract the 'Names' property from the feature's properties
+    const name = feature.get('Names');
+  
+    return new ol.style.Style({
+      text: new ol.style.Text({
+        text: name, // Set the text to the 'Names' attribute
+        font: '12px Arial', // Customize the font and size
+        fill: new ol.style.Fill({ color: 'black' }), // Set the text color
+        stroke: new ol.style.Stroke({ color: 'white', width: 3 }), // Add an outline to the text
+        offsetY: -15, // Offset the label up so it doesn't overlap the feature
+        textAlign: 'center', // Center the text horizontally
+        textBaseline: 'middle' // Center the text vertically
+      })
+    });
+  }
 
    
   // Dabane Wards
