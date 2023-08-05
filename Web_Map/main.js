@@ -181,6 +181,14 @@ function init(){
   })
   map.addInteraction(dragRotateInteraction);
 
+  const attributionImageOverlay = new ol.Overlay({
+    element: document.getElementById('attribution-image'),
+    positioning: 'bottom-right' // Adjust the positioning as needed
+  });
+
+// Add the attribution image overlay to the map
+  map.addOverlay(attributionImageOverlay);
+
   // *********************************************
   // Base Layers
   // *********************************************
@@ -404,7 +412,17 @@ const stamenToner = new ol.layer.Tile({
     scale: 0.3,
     // color:'red'
     
-  })
+  });
+
+  const woodlotMarkerStyle = new ol.style.Icon({
+    src: './resources/icons/tree.png',
+    size: [200, 200],
+    offset: [0, 0],
+    opacity: 1,
+    scale: 0.3,
+    color:'lime'
+    
+  });
 
   const gabionsMarkerStyle = new ol.style.Icon({
     src: './resources/icons/icon-white.png',
@@ -619,9 +637,9 @@ function createLabelStyle(feature, resolution) {
     return new ol.style.Style({
       text: new ol.style.Text({
         text: name, // Set the text to the 'Names' attribute
-        font: '12px Arial', // Customize the font and size
+        font: '8px Arial', // Customize the font and size
         fill: new ol.style.Fill({ color: 'black' }), // Set the text color
-        stroke: new ol.style.Stroke({ color: 'white', width: 3 }), // Add an outline to the text
+        stroke: new ol.style.Stroke({ color: 'white', width: 1 }), // Add an outline to the text
         offsetY: -15, // Offset the label up so it doesn't overlap the feature
         textAlign: 'center', // Center the text horizontally
         textBaseline: 'middle' // Center the text vertically
@@ -659,12 +677,28 @@ function createLabelStyle(feature, resolution) {
       url: './resources/shapefiles/sandDams.geojson',
       format: new ol.format.GeoJSON()
     }),
+    visible: false,
+    title: 'sandDams',
     style: new ol.style.Style({
       image:damMarkerStyle
     }),
-    visible: false,
-    title: 'sandDams'
+    // Add the label style function
+    renderMode: 'image',
+    style: function (feature, resolution) {
+      return [
+        new ol.style.Style({
+          image:damMarkerStyle
+        }),
+        createLabelStyle(feature, resolution)
+      ];
+    }
+
   })
+
+
+
+
+
 
   const gardensGeoJSON = new ol.layer.VectorImage({
     source: new ol.source.Vector({
@@ -676,6 +710,19 @@ function createLabelStyle(feature, resolution) {
     }),
     visible: false,
     title: 'gardens'
+  })
+
+
+  const woodLotGeoJSON = new ol.layer.VectorImage({
+    source: new ol.source.Vector({
+      url: './resources/shapefiles/Woodlots.geojson',
+      format: new ol.format.GeoJSON()
+    }),
+    style: new ol.style.Style({
+      image:woodlotMarkerStyle
+    }),
+    visible: true,
+    title: 'woodlots'
   })
 
 
@@ -728,6 +775,7 @@ const gabionsGeoJSON = new ol.layer.VectorImage({
   title: 'gabions'
 })
 
+  // Custom image overlay for attribution
 
   // // Static Image Layer (observing location Perm-01)
   // const imageFragmentStatic2 = new ol.layer.Image ({
@@ -744,7 +792,7 @@ const gabionsGeoJSON = new ol.layer.VectorImage({
   const layerGroup = new ol.layer.Group({
     layers: [
        ZimbabweGeoJSON,wardsGeoJSON,semiAridGeoJSON,gardensGeoJSON,waterpointsGeoJSON,sandDamsGeoJSON, 
-      gabionsGeoJSON
+      gabionsGeoJSON,woodLotGeoJSON
     ]
   })
   map.addLayer(layerGroup);
@@ -875,30 +923,29 @@ const gabionsGeoJSON = new ol.layer.VectorImage({
     const overlaydamWard = document.getElementById('Dam-Ward-info');
     const overlayDamCatchment = document.getElementById('Dam-catchment-info');
     const overlayDamYear = document.getElementById('Dam-Year-info');
+    const overlayDamImage = document.getElementById('dam-image');
 
   
     map.on('pointermove', function(e){
       clickoverlaycatchment.setPosition(undefined);
         map.forEachFeatureAtPixel(e.pixel, function(feature, layer){
           let clickedCoordinate = e.coordinate;
-          let clickedDamName = feature.get('Name')
+          let clickedDamName = feature.get('Names')
           let clickedDamDistrict = feature.get('District')     
           let clickedDamWard = feature.get('Ward')
           let clickedDamCatchment = feature.get('Catchment')
           let clickedDamYear = feature.get('Year')
-          let clickedDamImageUrl = feature.get('imageUrl'); // Get the image URL
+          let clickedDamImageURL = feature.get('imgUrl');
+
           clickoverlaycatchment.setPosition(clickedCoordinate);
           overlayDamName.innerHTML = clickedDamName + ' Sand Dam';
           overlayDamDistrict.innerHTML = 'District: ' + clickedDamDistrict;
           overlaydamWard.innerHTML = 'Ward:' + clickedDamWard;
           overlayDamCatchment.innerHTML = 'Catchment Area: ' + clickedDamCatchment;
           overlayDamYear.innerHTML = 'Year of Establishment: ' +clickedDamYear ;
+          overlayDamImage.src = clickedDamImageURL;
 
-          const imageElement = document.createElement('img');
-          imageElement.src = clickedDamImageUrl;
-          overlayDamImage.innerHTML = ''; // Clear previous content (if any)
-          overlayDamImage.appendChild(imageElement);
-
+          
         },
         {
           layerFilter: function(layerCandidate){
@@ -956,7 +1003,7 @@ const clickElementECW = document.querySelector('.overlay-container-ew');
   const overlayGardenImage = document.getElementById('garden-image');
   
 
-  map.on('click', function(e){
+  map.on('pointermove', function(e){
     clickoverlaygardens.setPosition(undefined);
       map.forEachFeatureAtPixel(e.pixel, function(feature, layer){
         let clickedCoordinate = e.coordinate;
@@ -980,7 +1027,58 @@ const clickElementECW = document.querySelector('.overlay-container-ew');
           return layerCandidate.get('title') === 'gardens';
         }
       })
-    })
+    });
+
+
+    //Woodlots Popup
+    const clickElementwoodlot = document.querySelector('.overlay-container-woodlot');
+    const clickoverlaywoodlot = new ol.Overlay({
+      element: clickElementwoodlot
+      })
+      map.addOverlay(clickoverlaywoodlot);
+  
+    const overlaywoodlotName = document.getElementById('woodlot-name-info');
+    const overlaywoodlotSize = document.getElementById('woodlot-size-info');
+    const overlaywoodlotDistrict = document.getElementById('woodlot-district-info');
+    const overlaywoodlotWard = document.getElementById('woodlot-ward-info');
+    const overlaywoodlotDescription = document.getElementById('woodlot-description-info');
+    const overlaywoodlotImage = document.getElementById('woodlot-image');
+    
+  
+    map.on('pointermove', function(e){
+      clickoverlaywoodlot.setPosition(undefined);
+        map.forEachFeatureAtPixel(e.pixel, function(feature, layer){
+          let clickedCoordinate = e.coordinate;
+          let clickedwoodlotName = feature.get('Names')
+          let cllickedwoodlotSize = feature.get('Size (sq m)')  
+          let clickedwoodlotDistict = feature.get('District')
+          let cllickedwoodlotWard = feature.get('Ward')    
+          let cllickedwoodlotDescription = feature.get('Type of trees planted')  
+          let clickedwoodlotImageURL = feature.get('imgUrl');
+  
+          clickoverlaywoodlot.setPosition(clickedCoordinate);
+          overlaywoodlotName.innerHTML = clickedwoodlotName;
+          overlaywoodlotSize.innerHTML = 'Size: ' + cllickedwoodlotSize;
+          overlaywoodlotDistrict.innerHTML = 'District: ' + clickedwoodlotDistict;
+          overlaywoodlotWard.innerHTML = 'Ward: ' + cllickedwoodlotWard;
+          overlaywoodlotDescription.innerHTML = cllickedwoodlotDescription;
+          overlaywoodlotImage.src = clickedwoodlotImageURL;
+        },
+        {
+          layerFilter: function(layerCandidate){
+            return layerCandidate.get('title') === 'woodlots';
+          }
+        })
+      })
+
+
+
+
+
+
+
+
+
 
     const clickElementSport = document.querySelector('.overlay-container-sport');
     const clickoverlaySport = new ol.Overlay({

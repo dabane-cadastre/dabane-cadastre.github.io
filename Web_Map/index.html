@@ -49,14 +49,20 @@
       <li><input type="checkbox" name='rasterLayerCheckBox' value='districts'><a href="">Districts</a><br></li>
       <li><input type="checkbox" name='rasterLayerCheckBox' value='wards'><a href="">Operational Wards</a><br></li>
 
-      <h2>Projects</h2>
+      <h2>Clean Water Supplies</h2>
       <li><input type="checkbox" name='rasterLayerCheckBox' value='sandDams'><a href="">SandDams</a><br></li>
+      <li><input type="checkbox" name='rasterLayerCheckBox' value='waterPoints'><a href="">Water Points</a><br></li>
+      
       <!-- <input type="checkbox" name='rasterLayerCheckBox' value='TileDebugLayer'>Тайловая сеть<br>
       <input type="checkbox" name='rasterLayerCheckBox' value='Graticule'>Координатная сеть<br> -->
-      <li><input type="checkbox" name='rasterLayerCheckBox' value='gardens'><a href="">gardens</a><br></li>
-      <li><input type="checkbox" name='rasterLayerCheckBox' value='waterPoints'><a href="">Water Points</a><br></li>
-      <li><input type="checkbox" name='rasterLayerCheckBox' value='gabions'><a href="">Environmental Works</a><br></li>
+    
 
+      <h2>Food and Nutrition</h2>
+      <li><input type="checkbox" name='rasterLayerCheckBox' value='gardens'><a href="">gardens</a><br></li>
+      
+      <h2>Environment</h2>
+      <li><input type="checkbox" name='rasterLayerCheckBox' value='gabions'><a href="">Environmental Works</a><br></li>
+      <li><input type="checkbox" name='rasterLayerCheckBox' value='woodlots'><a href="">WoodLots</a><br></li>
     </ul>
     
     
@@ -82,6 +88,9 @@
     <span class='overlay-text' id='Dam-Ward-info'></span><br>
     <span class='overlay-text' id='Dam-catchment-info'></span><br>
     <span class='overlay-text' id='Dam-Year-info'></span><br>
+    <div class='image-container'>
+      <img id="dam-image" src="" alt="Dam Image">
+    </div>
   </div>
   <div class = 'overlay-container-gardens'>
     <span class='overlay-text1' id='garden-name-info'></span><br>
@@ -93,7 +102,17 @@
       <img id="garden-image" src="" alt="Garden Image">
     </div>
   </div>
-  
+  <div class = 'overlay-container-woodlot'>
+    <span class='overlay-text1' id='woodlot-name-info'></span><br>
+    <span class='overlay-text' id='woodlot-size-info'></span><br>
+    <span class='overlay-text' id='woodlot-district-info'></span><br>
+    <span class='overlay-text' id='woodlot-ward-info'></span><br>
+    <span class='overlay-text' id='woodlot-description-info'></span><br>
+    <div class='image-container'>
+      <img id="woodlot-image" src="" alt="woodlot Image">
+    </div>
+  </div>
+
   </div>
   </div>
   <div class = 'overlay-container-subcatchment'>
@@ -102,7 +121,7 @@
     <span class='overlay-text' id='subcatchment-area'></span><br>
     
   </div>
-  
+
 
   
 
@@ -119,5 +138,8 @@
   
 
 </div>
+
+ 
+  
 </body>
 </html>
