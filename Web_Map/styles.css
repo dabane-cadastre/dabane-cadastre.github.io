@@ -343,15 +343,22 @@ text-align: center;
   margin: 0.5em;
   border-radius: 0.5em;
 }
-
-.overlay-container-ew, .overlay-container-gardens, .overlay-container-woodlot, .overlay-container-catchment, .overlay-container-subcatchment{
+.overlay-container-ew, .overlay-container-gardens, .overlay-container-woodlot, .overlay-container-catchment, .overlay-container-subcatchment {
   text-align: center;
   font-size: large;
-  padding: 4px 4px;
-  color: rgb(255, 255, 255);
-  background-color:rgb(8, 227, 243);
+  padding: 8px 12px; /* Slightly increased padding for a more spacious look */
+  color: rgb(2, 2, 2);
+  background-color: rgba(245, 248, 252, 0.5); /* A beautiful blue color with 80% opacity */
   margin: 0.5em;
-  border-radius: 0.5em;
+  border-radius: 10px; /* Increased border radius for a smoother look */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15); /* Adding a subtle box shadow for depth */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Adding a transition effect */
+}
+
+/* Add hover styles for an interactive effect */
+.overlay-container-ew:hover, .overlay-container-gardens:hover, .overlay-container-woodlot:hover, .overlay-container-catchment:hover, .overlay-container-subcatchment:hover {
+  background-color: rgba(255, 188, 128, 0.8); /* A different color with 80% opacity when hovering */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Slightly increased shadow when hovering */
 }
 
 
