@@ -353,6 +353,7 @@ text-align: center;
   border-radius: 10px; /* Increased border radius for a smoother look */
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15); /* Adding a subtle box shadow for depth */
   transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Adding a transition effect */
+  max-width: 300px;
 }
 
 /* Add hover styles for an interactive effect */
