@@ -419,7 +419,7 @@ const stamenToner = new ol.layer.Tile({
     size: [200, 200],
     offset: [0, 0],
     opacity: 1,
-    scale: 0.3,
+    scale: 0.12,
     color:'lime'
     
   });
@@ -721,7 +721,7 @@ function createLabelStyle(feature, resolution) {
     style: new ol.style.Style({
       image:woodlotMarkerStyle
     }),
-    visible: true,
+    visible: false,
     title: 'woodlots'
   })
 
@@ -1169,4 +1169,6 @@ const clickElementECW = document.querySelector('.overlay-container-ew');
     visible: true
   })
   map.addLayer(extentLimitsGeoJSON);
+
+ 
 }
