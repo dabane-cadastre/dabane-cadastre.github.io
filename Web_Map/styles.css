@@ -28,7 +28,7 @@ body {
 };
 
 .sidebar ul h2{
-  font-size: 22px;
+  font-size: 18px;
   color: white;
   text-align: center;
   background: #e5ece8;
@@ -41,7 +41,7 @@ body {
 
 .sidebar ul h2{
   color: #f5f4fb;
-  font-size: 20px;
+  font-size: 16px;
   margin: 10px;
   background: peru;
 }
