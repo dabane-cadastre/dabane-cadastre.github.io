@@ -432,6 +432,16 @@ const stamenToner = new ol.layer.Tile({
     scale: 0.3,
     // color:'red'
     
+  });
+
+  const borholeMarkerStyle = new ol.style.Icon({
+    src: './resources/icons/borehole.png',
+    size: [200, 200],
+    offset: [0, 0],
+    opacity: 1,
+    scale: 0.1,
+    color:'white'
+    
   })
 
 
@@ -723,7 +733,20 @@ function createLabelStyle(feature, resolution) {
     }),
     visible: false,
     title: 'woodlots'
+  });
+
+  const boreholeGeoJSON = new ol.layer.VectorImage({
+    source: new ol.source.Vector({
+      url: './resources/shapefiles/boreholes.geojson',
+      format: new ol.format.GeoJSON()
+    }),
+    style: new ol.style.Style({
+      image:borholeMarkerStyle
+    }),
+    visible: true,
+    title: 'boreholes'
   })
+
 
 
 
@@ -792,7 +815,7 @@ const gabionsGeoJSON = new ol.layer.VectorImage({
   const layerGroup = new ol.layer.Group({
     layers: [
        ZimbabweGeoJSON,wardsGeoJSON,semiAridGeoJSON,gardensGeoJSON,waterpointsGeoJSON,sandDamsGeoJSON, 
-      gabionsGeoJSON,woodLotGeoJSON
+      gabionsGeoJSON,woodLotGeoJSON, boreholeGeoJSON
     ]
   })
   map.addLayer(layerGroup);
@@ -1030,6 +1053,9 @@ const clickElementECW = document.querySelector('.overlay-container-ew');
     });
 
 
+    
+
+
     //Woodlots Popup
     const clickElementwoodlot = document.querySelector('.overlay-container-woodlot');
     const clickoverlaywoodlot = new ol.Overlay({
@@ -1070,6 +1096,47 @@ const clickElementECW = document.querySelector('.overlay-container-ew');
           }
         })
       })
+
+  //Woodlots Popup
+  const clickElementborehole = document.querySelector('.overlay-container-borehole');
+  const clickoverlayborehole = new ol.Overlay({
+    element: clickElementborehole
+    })
+    map.addOverlay(clickoverlayborehole);
+
+  const overlayboreholeName = document.getElementById('borehole-name-info');
+  const overlayboreholeType = document.getElementById('borehole-size-info');
+  const overlayboreholeDistrict = document.getElementById('borehole-district-info');
+  const overlayboreholeWard = document.getElementById('borehole-ward-info');
+  const overlayboreholeDescription = document.getElementById('borehole-description-info');
+  const overlayboreholeImage = document.getElementById('borehole-image');
+  
+
+  map.on('pointermove', function(e){
+    clickoverlayborehole.setPosition(undefined);
+      map.forEachFeatureAtPixel(e.pixel, function(feature, layer){
+        let clickedCoordinate = e.coordinate;
+        let clickedboreholeName = feature.get('Names')
+        let cllickedboreholeType = feature.get('Type of work')  
+        let clickedboreholeDistict = feature.get('District')
+        let cllickedboreholeWard = feature.get('Ward')    
+        let cllickedboreholeDescription = feature.get('Program')  
+        let clickedboreholeImageURL = feature.get('imgUrl');
+
+        clickoverlayborehole.setPosition(clickedCoordinate);
+        overlayboreholeName.innerHTML = clickedboreholeName;
+        overlayboreholeType.innerHTML = 'Type of Work: ' + cllickedboreholeType;
+        overlayboreholeDistrict.innerHTML = 'District: ' + clickedboreholeDistict;
+        overlayboreholeWard.innerHTML = 'Ward: ' + cllickedboreholeWard;
+        overlayboreholeDescription.innerHTML = cllickedboreholeDescription;
+        overlayboreholeImage.src = clickedboreholeImageURL;
+      },
+      {
+        layerFilter: function(layerCandidate){
+          return layerCandidate.get('title') === 'boreholes';
+        }
+      })
+    })  
 
 
 
