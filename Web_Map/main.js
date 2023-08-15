@@ -743,7 +743,7 @@ function createLabelStyle(feature, resolution) {
     style: new ol.style.Style({
       image:borholeMarkerStyle
     }),
-    visible: true,
+    visible: false,
     title: 'boreholes'
   })
 
